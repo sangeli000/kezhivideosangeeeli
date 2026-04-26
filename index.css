@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, monospace;
+}
+
+/* 胶片质感噪点 */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.012;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* 文字内部扫光动画 (更显眼的质感) */
+.text-shimmer {
+  background: linear-gradient(90deg, transparent 5%, rgba(255,255,255,0.9) 50%, transparent 95%),
+              linear-gradient(to bottom, #FFFFFF 20%, #A1A1A6 100%);
+  background-size: 200% 100%, 100% 100%;
+  background-repeat: no-repeat;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: textShine 0.8s infinite linear;
+  display: inline-block;
+  padding: 0.15em 0.3em;
+  margin: -0.15em -0.3em;
+}
+
+@keyframes textShine {
+  0% { background-position: -200% 0, 0 0; }
+  100% { background-position: 200% 0, 0 0; }
+}
+
+@layer base {
+  body {
+    @apply bg-black text-white antialiased;
+  }
+}
